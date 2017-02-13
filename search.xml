@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+    
+    <entry>
+      <title></title>
+      <url>%2F2017%2F02%2F12%2F%E5%90%AC%E5%90%AC%EF%BC%8C%E4%B8%80%E6%AC%BE%E4%BC%98%E9%9B%85%E7%9A%84%E5%BC%80%E6%BA%90%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%2F</url>
+      <content type="text"><![CDATA[听听，一款优雅的开源音乐播放器ListenerMusicPlayer一款优雅的遵循 Material Design 的开源音乐播放器，UI参考 腾讯轻听 音乐播放器,使用 Lastfm Api 与 酷狗歌词Api。项目架构采用 mvp-clean，基于 Retrofit2 + Dagger2 + RxJava + RxBus + Glide。 github地址：ListenerMusicPlayer 效果图 部分截图 gif演示 模块分析 我的歌曲：展示本地所有的音乐文件，由歌曲、歌手、专辑三个标签页分类展示，数据取自系统媒体库。为了防止媒体库数据与本地不同步，应用启动时会主动刷新媒体库。 正在播放：该模块体现为固定在每个页面下方的播放控制区，展开后可查看全部操作，包括标记喜欢、打开播放列表及查看歌词。歌词API由酷狗提供。 文件夹：展示本地所有包含音乐文件个文件夹 我的歌单：展示用户创建的歌单 我喜欢：展示用户标记为喜欢的歌曲 最近播放：展示用户最近播放的歌曲 最近添加：展示最近添加的歌曲 播放排行：综合歌曲过去每周的播放历史和当前周播放次数得出歌曲排行 本地搜索：根据关键词搜索相关的歌曲、专辑和歌手 设置：该模块包括切换日夜间模式和更换出题 主要技术点梳理那么，从本项目中你能学到哪些知识呢？ 高仿轻听UI，最为酷炫的正在播放模块也得到了高度还原 使用 app-theme-engine 轻松实现日夜间切换和主题更换 使用独立进程负责播放，进程间AIDL通信 mvp-clean架构的使用 透明状态栏使用与版本适配 使用RxBus进行组件间通信 自定义View如LyricView、PlayPauseView的实现 通过自定义Behavior实现自定义FloatingActionButton进出动画 使用ScrimUtil实现更加平滑的单色渐变效果 使用RxJava对数据进行过滤和转化 Thanks 参考项目 : Timber 、 轻听 图片来源 : Material design icon 、 腾讯轻听App Api : LastFM 、 酷狗音乐 开源库 : RxJava 、 Retrofit 、 Glide 、 AndroidSlidingUpPanel等等 Statement感谢轻听提供参考，轻听是一款十分良心的音乐播放器，本人使用了其中的部分素材，如构成侵权请及时通知我修改或删除。部分数据来自于干LastFM和酷狗歌词Api，一切数据解释权都归LastFM和酷狗所有。 End 注意：此开源项目仅做学习交流使用，如果你觉得不错，对你有帮助，欢迎点个fork，star，follow，也可以帮忙分享给你更多的朋友，这是给我们最大的动力与支持。 Contact Me Github: github.com/hefuyicoder Email: hefuyicoder@gmail.com]]></content>
+    </entry>
+
+    
+  
+  
+</search>

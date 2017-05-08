@@ -89,7 +89,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Glide,源码分析," />
 
 
 
@@ -105,15 +105,25 @@
 
 
 
-<meta name="description" content="骑哒哒哒的少年">
-<meta property="og:type" content="website">
-<meta property="og:title" content="乌有先生的个人博客">
-<meta property="og:url" content="http://hefuyicoder.com/index.html">
+<meta name="description" content="Glide源码解析（一）：加载流程对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。
+它们的使用场景基本都是重合的，而本人对 Glide">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Glide源码解析（一）：加载流程">
+<meta property="og:url" content="http://hefuyicoder.com/2017/04/27/Glide源码解析（一）：加载流程/index.html">
 <meta property="og:site_name" content="乌有先生的个人博客">
-<meta property="og:description" content="骑哒哒哒的少年">
+<meta property="og:description" content="Glide源码解析（一）：加载流程对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。
+它们的使用场景基本都是重合的，而本人对 Glide">
+<meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/glideprocress.png">
+<meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/DrawableTypeRequest.png">
+<meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/GenericRequestBuilder.png">
+<meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/DataLoadProvider.png">
+<meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/FixLoadProvider.png">
+<meta property="og:updated_time" content="2017-05-08T03:41:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="乌有先生的个人博客">
-<meta name="twitter:description" content="骑哒哒哒的少年">
+<meta name="twitter:title" content="Glide源码解析（一）：加载流程">
+<meta name="twitter:description" content="Glide源码解析（一）：加载流程对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。
+它们的使用场景基本都是重合的，而本人对 Glide">
+<meta name="twitter:image" content="http://o8swcawjo.bkt.clouddn.com/glideprocress.png">
 
 
 
@@ -141,13 +151,13 @@
 
 
 
-  <link rel="canonical" href="http://hefuyicoder.com/"/>
+  <link rel="canonical" href="http://hefuyicoder.com/2017/04/27/Glide源码解析（一）：加载流程/"/>
 
 
 
 
 
-  <title> 乌有先生的个人博客 </title>
+  <title> Glide源码解析（一）：加载流程 | 乌有先生的个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -172,9 +182,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -298,307 +306,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://hefuyicoder.com/2017/05/08/Glide源码解析（二）：缓存机制/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="乌有先生">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.png">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="乌有先生的个人博客">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="乌有先生的个人博客" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/08/Glide源码解析（二）：缓存机制/" itemprop="url">
-                  Glide源码解析（二）：缓存机制
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-08T00:00:00+08:00">
-                2017-05-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/源码分析/" itemprop="url" rel="index">
-                    <span itemprop="name">源码分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/05/08/Glide源码解析（二）：缓存机制/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/08/Glide源码解析（二）：缓存机制/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/05/08/Glide源码解析（二）：缓存机制/" class="leancloud_visitors" data-flag-title="Glide源码解析（二）：缓存机制">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Glide源码解析（二）：缓存机制"><a href="#Glide源码解析（二）：缓存机制" class="headerlink" title="Glide源码解析（二）：缓存机制"></a>Glide源码解析（二）：缓存机制</h2><p>本文是 Glide 源码分析系列的第二篇，主要通过分析源码总结 Glide 的缓存机制。</p>
-<h3 id="从加载流程揭开缓存机制的面纱"><a href="#从加载流程揭开缓存机制的面纱" class="headerlink" title="从加载流程揭开缓存机制的面纱"></a>从加载流程揭开缓存机制的面纱</h3><p>首先回忆一下上一篇关于 Glide 加载流程源码分析的内容，我们从 Glide.with().load().into() 这个最简单最基本的用法入手，一步步深入源码，梳理出了完整的图片加载流程。由于当时分析重点在于整体流程的把握上，所以对于缓存相关的部分都是简单带过而没有进行深入分析。首先是为了避免文章篇幅过长，其次因为缓存它不是独立的部分，它埋藏在整个加载流程的各个环节中，所以对缓存机制的理解应该建立在对整体流程清晰的把握上。</p>
-<p>而在本文中，我们将从整个加载流程入手，找出缓存相关的部分，进而还原出 Glide 缓存机制的整体面貌。然后再对各个部分进行详细分析。</p>
-<p>那么我们开始来看看加载流程中被我们错过的缓存操作。</p>
-<h4 id="发起请求前"><a href="#发起请求前" class="headerlink" title="发起请求前"></a>发起请求前</h4><p>我们在 GenericRequestBuilder 中构建了一个 GenericRequest 实例并交给 RequestTracker 去处理，执行它的 begin() 方法。在 GenericRequest 的 确定了 ImageView 的大小之后在 onSizeReady() 回调中调用了 Engine 的load() 进行加载。这时我们第一次遇到了缓存操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">public class Engine implements EngineJobListener,</span><br><span class="line">        MemoryCache.ResourceRemovedListener,</span><br><span class="line">        EngineResource.ResourceListener &#123;</span><br><span class="line"></span><br><span class="line">        public &lt;T, Z, R&gt; LoadStatus load(Key signature, int width, int height, DataFetcher&lt;T&gt; fetcher,</span><br><span class="line">            DataLoadProvider&lt;T, Z&gt; loadProvider, Transformation&lt;Z&gt; transformation, ResourceTranscoder&lt;Z, R&gt; transcoder,</span><br><span class="line">            Priority priority, boolean isMemoryCacheable, DiskCacheStrategy diskCacheStrategy, ResourceCallback cb) &#123;</span><br><span class="line">        ......</span><br><span class="line"></span><br><span class="line">        final String id = fetcher.getId();</span><br><span class="line">        EngineKey key = keyFactory.buildKey(id, signature, width, height, loadProvider.getCacheDecoder(),</span><br><span class="line">                loadProvider.getSourceDecoder(), transformation, loadProvider.getEncoder(),</span><br><span class="line">                transcoder, loadProvider.getSourceEncoder());</span><br><span class="line"></span><br><span class="line">        /// 从LruResourceCache中获取</span><br><span class="line">        EngineResource&lt;?&gt; cached = loadFromCache(key, isMemoryCacheable);</span><br><span class="line">        if (cached != null) &#123;</span><br><span class="line">            ///GenericRequest</span><br><span class="line">            cb.onResourceReady(cached);</span><br><span class="line">            if (Log.isLoggable(TAG, Log.VERBOSE)) &#123;</span><br><span class="line">                logWithTimeAndKey(&quot;Loaded resource from cache&quot;, startTime, key);</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// 从activeResources中获取</span><br><span class="line">        EngineResource&lt;?&gt; active = loadFromActiveResources(key, isMemoryCacheable);</span><br><span class="line">        if (active != null) &#123;</span><br><span class="line">            ///GenericRequest</span><br><span class="line">            cb.onResourceReady(active);</span><br><span class="line">            if (Log.isLoggable(TAG, Log.VERBOSE)) &#123;</span><br><span class="line">                logWithTimeAndKey(&quot;Loaded resource from active resources&quot;, startTime, key);</span><br><span class="line">            &#125;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ......</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private EngineResource&lt;?&gt; loadFromActiveResources(Key key, boolean isMemoryCacheable) &#123;</span><br><span class="line">        if (!isMemoryCacheable) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        EngineResource&lt;?&gt; active = null;</span><br><span class="line">        WeakReference&lt;EngineResource&lt;?&gt;&gt; activeRef = activeResources.get(key);</span><br><span class="line">        if (activeRef != null) &#123;</span><br><span class="line">            active = activeRef.get();</span><br><span class="line">            if (active != null) &#123;</span><br><span class="line">                active.acquire();</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                activeResources.remove(key);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return active;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ///从LruResourceCache中获取,若有则移除并放入activesource</span><br><span class="line">    private EngineResource&lt;?&gt; loadFromCache(Key key, boolean isMemoryCacheable) &#123;</span><br><span class="line">        if (!isMemoryCacheable) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        EngineResource&lt;?&gt; cached = getEngineResourceFromCache(key);</span><br><span class="line">        if (cached != null) &#123;</span><br><span class="line">            cached.acquire();</span><br><span class="line">            activeResources.put(key, new ResourceWeakReference(key, cached, getReferenceQueue()));</span><br><span class="line">        &#125;</span><br><span class="line">        return cached;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">    private EngineResource&lt;?&gt; getEngineResourceFromCache(Key key) &#123;</span><br><span class="line">        Resource&lt;?&gt; cached = cache.remove(key);</span><br><span class="line"></span><br><span class="line">        final EngineResource result;</span><br><span class="line">        if (cached == null) &#123;</span><br><span class="line">            result = null;</span><br><span class="line">        &#125; else if (cached instanceof EngineResource) &#123;</span><br><span class="line">            // Save an object allocation if we&apos;ve cached an EngineResource (the typical case).</span><br><span class="line">            result = (EngineResource) cached;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            result = new EngineResource(cached, true /*isCacheable*/);</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>程序首先调用 loadFromCache() 尝试从 MemoryCache 中获取，如果命中缓存则将缓存从 MemoryCache 中移除并放入 activeResources，然后返回。如果缓存失效则尝试从 activeResources 中获取，如果都失效再构建 EngineRunnable 从磁盘或者网络获取。</p>
-<p>是否决定从 MemoryCache 和 activeResources 中获取的前提条件是 isMemoryCacheable 为 true。这个值从 GenericRequestBuilder 传过来，默认为true，也就是说 Glide 默认开启内存缓存。除非你主动调用了 skipMemoryCache() 使该加载请求跳过内存缓存。该方法就是通过将 isMemoryCacheable 置为 false 实现的。</p>
-<p>这里出现了 MemoryCache 和 activeResources，它们一起构成的 Glide 中的内存缓存。它们的 Key，都是由 url、图片大小、decoder、encoder等变量组成。MemoryCache 用于保存最近使用过而当前不在使用的 EngineResource，这也是缓存命中是需要将缓存移除并添加到 activeResources 的原因。其内部使用 LinkedHashMap，当大小达到一个阈值时通过 LRU 算法来清除。在 Glide 中 MemoryCache 的默认实现是 LruResourceCache，在 GlideBuilder 中被初始化。activeResources 用于保存当前正在被使用的 EngineResource，是一个使用 Key 作为键， EngineResource 的弱引用为值的 HashMap。</p>
-<p>当 MemoryCache 和 activeResources 都失效时，程序才构建一个 EngineRunnable 并交给线程池执行。在 EngineRunnable 的 run() 方法中就调用了 decode() 尝试从磁盘或网络获取图片，这里，我们第二次遇到了缓存操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">class EngineRunnable implements Runnable, Prioritized &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        if (isCancelled) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Exception exception = null;</span><br><span class="line">        Resource&lt;?&gt; resource = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            ///得到了Resource&lt;GlideDrawable&gt;对象</span><br><span class="line">            resource = decode();</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            if (Log.isLoggable(TAG, Log.VERBOSE)) &#123;</span><br><span class="line">                Log.v(TAG, &quot;Exception decoding&quot;, e);</span><br><span class="line">            &#125;</span><br><span class="line">            exception = e;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (isCancelled) &#123;</span><br><span class="line">            if (resource != null) &#123;</span><br><span class="line">                resource.recycle();</span><br><span class="line">            &#125;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (resource == null) &#123;</span><br><span class="line">            /// 第一次走decode()尝试从磁盘获取,失败后会走这里</span><br><span class="line">            onLoadFailed(exception);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            onLoadComplete(resource);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private boolean isDecodingFromCache() &#123;</span><br><span class="line">        return stage == Stage.CACHE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private Resource&lt;?&gt; decode() throws Exception &#123;</span><br><span class="line">        if (isDecodingFromCache()) &#123;</span><br><span class="line">            ///从磁盘缓存中decode图片,第一次会走这</span><br><span class="line">            return decodeFromCache();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            ///从源中decode图片,第二次会走这</span><br><span class="line">            return decodeFromSource();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private Resource&lt;?&gt; decodeFromCache() throws Exception &#123;</span><br><span class="line">        Resource&lt;?&gt; result = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            result = decodeJob.decodeResultFromCache();</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            if (Log.isLoggable(TAG, Log.DEBUG)) &#123;</span><br><span class="line">                Log.d(TAG, &quot;Exception decoding result from cache: &quot; + e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if (result == null) &#123;</span><br><span class="line">            result = decodeJob.decodeSourceFromCache();</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在 decode() 方法中，决定从源获取图片之前，先调用 decodeFromCache() 方法尝试从磁盘中获取图片。而 decodeFromCache() 方法中又先后调用 decodeResultFromCache() 获取处理图 和 decodeSourceFromCache() 获取原图。</p>
-<p>那么我们去看看这两个方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">class DecodeJob&lt;A, T, Z&gt; &#123;</span><br><span class="line">    </span><br><span class="line">    ///从磁盘decode转化过的resource,然后transcode</span><br><span class="line">    public Resource&lt;Z&gt; decodeResultFromCache() throws Exception &#123;</span><br><span class="line">        if (!diskCacheStrategy.cacheResult()) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        long startTime = LogTime.getLogTime();</span><br><span class="line">        ///Resource&lt;GifBitmapWrapper&gt;</span><br><span class="line">        Resource&lt;T&gt; transformed = loadFromCache(resultKey);</span><br><span class="line">        if (Log.isLoggable(TAG, Log.VERBOSE)) &#123;</span><br><span class="line">            logWithTimeAndKey(&quot;Decoded transformed from cache&quot;, startTime);</span><br><span class="line">        &#125;</span><br><span class="line">        startTime = LogTime.getLogTime();</span><br><span class="line">        ///Resource&lt;GlideDrawable&gt;</span><br><span class="line">        Resource&lt;Z&gt; result = transcode(transformed);</span><br><span class="line">        if (Log.isLoggable(TAG, Log.VERBOSE)) &#123;</span><br><span class="line">            logWithTimeAndKey(&quot;Transcoded transformed from cache&quot;, startTime);</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Resource&lt;Z&gt; decodeSourceFromCache() throws Exception &#123;</span><br><span class="line">        if (!diskCacheStrategy.cacheSource()) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        long startTime = LogTime.getLogTime();</span><br><span class="line">        ///Resource&lt;GifBitmapWrapper&gt; 使用的是OriginalKey</span><br><span class="line">        Resource&lt;T&gt; decoded = loadFromCache(resultKey.getOriginalKey());</span><br><span class="line">        if (Log.isLoggable(TAG, Log.VERBOSE)) &#123;</span><br><span class="line">            logWithTimeAndKey(&quot;Decoded source from cache&quot;, startTime);</span><br><span class="line">        &#125;</span><br><span class="line">        return transformEncodeAndTranscode(decoded);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private Resource&lt;T&gt; loadFromCache(Key key) throws IOException &#123;</span><br><span class="line">        File cacheFile = diskCacheProvider.getDiskCache().get(key);</span><br><span class="line">        if (cacheFile == null) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Resource&lt;T&gt; result = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            ///FileToStreamDecoder,将file解码成Resource&lt;GifBitmapWrapper&gt;实例是GifBitmapWrapperResource</span><br><span class="line">            result = loadProvider.getCacheDecoder().decode(cacheFile, width, height);</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            if (result == null) &#123;</span><br><span class="line">                diskCacheProvider.getDiskCache().delete(key);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>decodeResultFromCache() 方法和 decodeSourceFromCache() 方法内部都调用了 loadFromCache() 方法来获取磁盘缓存，只不过前者使用的参数是 resultKey 而后者使用的是 OriginalKey。这里的 loadProvider 是一个 LazyDiskCacheProvider 对象，里面封装了一个 InternalCacheDiskCacheFactory，当调用 getCacheDecoder() 时，方法内部将调用 InternalCacheDiskCacheFactory 的 build() 方法，最终返回一个 DiskLruCacheWrapper 对象。现在只要知道它是我们操作磁盘缓存的直接对象即可，内部原理将在文章后半部分进行分析。</p>
-<p>它们得到的都是一个缓存文件，只不过前者写入的内容是变换后的图片，后者后者写入的内容是原始的图片。所以前者获取文件之后只需要进行解码和转码即可，而后者需要进行变换加上解码和转码。</p>
-<p>decodeSourceFromCache() 方法中从磁盘缓存中获取原图之后调用了 transformEncodeAndTranscode() 方法进行变换和转码，这里也涉及到缓存的操作，这个会在后面讲到。</p>
-<p>是否决定从磁盘缓存中获取取决于 DiskCacheStrategy，它是一个枚举类，用来表示一组缓存策略，cacheSource 属性表示是否缓存原图，cacheResult 属性表示是否缓存处理图。Glide 的默认的磁盘缓存是 RESULT，即只缓存处理图，也可以通过 diskCacheStrategy() 方法来指定。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public enum DiskCacheStrategy &#123;</span><br><span class="line">    /** Caches with both &#123;@link #SOURCE&#125; and &#123;@link #RESULT&#125;. */</span><br><span class="line">    ALL(true, true),</span><br><span class="line">    /** Saves no data to cache. */</span><br><span class="line">    NONE(false, false),</span><br><span class="line">    /** Saves just the original data to cache. */</span><br><span class="line">    SOURCE(true, false),</span><br><span class="line">    /** Saves the media item after all transformations to cache. */</span><br><span class="line">    RESULT(false, true);</span><br><span class="line"></span><br><span class="line">    private final boolean cacheSource;</span><br><span class="line">    private final boolean cacheResult;</span><br><span class="line"></span><br><span class="line">    DiskCacheStrategy(boolean cacheSource, boolean cacheResult) &#123;</span><br><span class="line">        this.cacheSource = cacheSource;</span><br><span class="line">        this.cacheResult = cacheResult;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当从磁盘缓存中既取不到原图也取不到处理图时，才会发起网络请求去获取。相应的逻辑在 DecodeJob 的 decodeFromSource() 方法中。</p>
-<p>在 decodeFromSource() 方法中，程序首先调用了 decodeSource() 方法来从网络中获取 InputStream 以及解码成 Bitmap，然后调用 transformEncodeAndTranscode() 来进行图片的变换和转码。这两个步骤中都涉及到对缓存的操作。先来看看 decodeSource() 方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">private Resource&lt;T&gt; decodeSource() throws Exception &#123;</span><br><span class="line">        Resource&lt;T&gt; decoded = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            long startTime = LogTime.getLogTime();</span><br><span class="line">            ///ImageVideoFetcher,内部使用... 返回一个ImageVideoWrapper</span><br><span class="line">            final A data = fetcher.loadData(priority);</span><br><span class="line">            if (Log.isLoggable(TAG, Log.VERBOSE)) &#123;</span><br><span class="line">                logWithTimeAndKey(&quot;Fetched data&quot;, startTime);</span><br><span class="line">            &#125;</span><br><span class="line">            if (isCancelled) &#123;</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">            ///返回 Resource&lt;GifBitmapWrapper&gt;</span><br><span class="line">            decoded = decodeFromSourceData(data);</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            fetcher.cleanup();</span><br><span class="line">        &#125;</span><br><span class="line">        return decoded;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private Resource&lt;T&gt; decodeFromSourceData(A data) throws IOException &#123;</span><br><span class="line">        final Resource&lt;T&gt; decoded;</span><br><span class="line">        ///判断磁盘缓存策略中是否缓存source,缓存ImageVideoWrapper并decode(原始InputStream)</span><br><span class="line">        if (diskCacheStrategy.cacheSource()) &#123;</span><br><span class="line">            decoded = cacheAndDecodeSourceData(data);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            ......</span><br><span class="line">        &#125;</span><br><span class="line">        return decoded;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private Resource&lt;T&gt; cacheAndDecodeSourceData(A data) throws IOException &#123;</span><br><span class="line">        long startTime = LogTime.getLogTime();</span><br><span class="line">        ///loadProvider是FixedLoadProvider,里面封装了ImageVideoGifDrawableLoadProvider</span><br><span class="line">        // 这里实际返回的ImageVideoWrapperEncoder</span><br><span class="line">        SourceWriter&lt;A&gt; writer = new SourceWriter&lt;A&gt;(loadProvider.getSourceEncoder(), data);</span><br><span class="line">        ///diskCacheProvider是一个LazyDiskCacheProvider,返回DiskLruCacheWrapper实例</span><br><span class="line">        ///resultKey由Engine构造decodejob的时候传进来,由EngineKeyFactory.builidKey返回.</span><br><span class="line">        diskCacheProvider.getDiskCache().put(resultKey.getOriginalKey(), writer);</span><br><span class="line">        if (Log.isLoggable(TAG, Log.VERBOSE)) &#123;</span><br><span class="line">            logWithTimeAndKey(&quot;Wrote source to cache&quot;, startTime);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        startTime = LogTime.getLogTime();</span><br><span class="line">        Resource&lt;T&gt; result = loadFromCache(resultKey.getOriginalKey());</span><br><span class="line">        if (Log.isLoggable(TAG, Log.VERBOSE) &amp;&amp; result != null) &#123;</span><br><span class="line">            logWithTimeAndKey(&quot;Decoded source from cache&quot;, startTime);</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>decodeSource() 方法中 DateFetcher 的 loadData() 方法从网络中获取数据之后，调用了 decodeFromSourceData() 方法开始进行解码。在 decodeFromSourceData() 方法中，解码前首先判断当前磁盘缓存策略，如果 cacheSource 为 true，那么解码前还有写入磁盘缓存的操作，也就是 cacheAndDecodeSourceData() 方法。方法中获取了 DiskLruCacheWrapper 对象然后调用了它的 put() 方法来写入缓存，最终会将从服务器获取的 InputSteream 写入一个缓存文件中，缓存对应的 Key 是由 Url 生成的 OriginalKey。</p>
-<p>回到 decodeSource() 方法，将图片解码之后，接着就是调用 transformEncodeAndTranscode() 进行变换和转码，这里也涉及到缓存的操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">private Resource&lt;Z&gt; transformEncodeAndTranscode(Resource&lt;T&gt; decoded) &#123;</span><br><span class="line">        long startTime = LogTime.getLogTime();</span><br><span class="line">        ///因为decodeSourceFromCache去取出的resource还没有经过transform,要先transform再缓存起来</span><br><span class="line">        Resource&lt;T&gt; transformed = transform(decoded);</span><br><span class="line">        if (Log.isLoggable(TAG, Log.VERBOSE)) &#123;</span><br><span class="line">            logWithTimeAndKey(&quot;Transformed resource from source&quot;, startTime);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ///将transform后的resource写入缓存 bitmap或GifDrawable</span><br><span class="line">        writeTransformedToCache(transformed);</span><br><span class="line"></span><br><span class="line">        startTime = LogTime.getLogTime();</span><br><span class="line">        ///与decodeResultFromCache的第二步一样</span><br><span class="line">        Resource&lt;Z&gt; result = transcode(transformed);</span><br><span class="line">        if (Log.isLoggable(TAG, Log.VERBOSE)) &#123;</span><br><span class="line">            logWithTimeAndKey(&quot;Transcoded transformed from source&quot;, startTime);</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void writeTransformedToCache(Resource&lt;T&gt; transformed) &#123;</span><br><span class="line">        if (transformed == null || !diskCacheStrategy.cacheResult()) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        long startTime = LogTime.getLogTime();</span><br><span class="line">        ///GifBitmapWrapperResourceEncoder</span><br><span class="line">        SourceWriter&lt;Resource&lt;T&gt;&gt; writer = new SourceWriter&lt;Resource&lt;T&gt;&gt;(loadProvider.getEncoder(), transformed);</span><br><span class="line">        ///resultKey是一个EngineKey</span><br><span class="line">        diskCacheProvider.getDiskCache().put(resultKey, writer);</span><br><span class="line">        if (Log.isLoggable(TAG, Log.VERBOSE)) &#123;</span><br><span class="line">            logWithTimeAndKey(&quot;Wrote transformed from source to cache&quot;, startTime);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>transformEncodeAndTranscode() 方法中调用了 transform() 方法进行图片变换之后调用了 writeTransformedToCache() 方法来尝试将 Resource<gifbitmapwrapper> 写入磁盘缓存。具体是借助 GifBitmapWrapperResourceEncoder 来完成，有兴趣可以自行研究。</gifbitmapwrapper></p>
-<p>按着图片的加载流程，经过变换和转码之后，会回到 EngineRunnable 的 run() 方法，然后回调 EngineJob 的 onResourceReady() 方法，通知图片获取已经完成。我们直接来到 handleResultOnMainThread() 方法，这时 EngineJob 正准备将 onResourceReady() 回调分发给 GenericRequest。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">private void handleResultOnMainThread() &#123;</span><br><span class="line">    if (isCancelled) &#123;</span><br><span class="line">        resource.recycle();</span><br><span class="line">        return;</span><br><span class="line">    &#125; else if (cbs.isEmpty()) &#123;</span><br><span class="line">        throw new IllegalStateException(&quot;Received a resource without any callbacks to notify&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    ///封装成一个EngineResource</span><br><span class="line">    engineResource = engineResourceFactory.build(resource, isCacheable);</span><br><span class="line">    hasResource = true;</span><br><span class="line"></span><br><span class="line">    // Hold on to resource for duration of request so we don&apos;t recycle it in the middle of notifying if it</span><br><span class="line">    // synchronously released by one of the callbacks.</span><br><span class="line">    engineResource.acquire();</span><br><span class="line">    ///key是一个EngineKey。如果resource.isCacheable()为true,resource将添加到activeResources中,并在移除时加入memorycache</span><br><span class="line">    listener.onEngineJobComplete(key, engineResource);</span><br><span class="line"></span><br><span class="line">    ///这里的ResourceCallback就是GenericRequest,由GenericRequest调用EngineJob的load方法时传入</span><br><span class="line">    for (ResourceCallback cb : cbs) &#123;</span><br><span class="line">        if (!isInIgnoredCallbacks(cb)) &#123;</span><br><span class="line">            engineResource.acquire();</span><br><span class="line">            ///回调GenericRequest</span><br><span class="line">            cb.onResourceReady(engineResource);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // Our request is complete, so we can release the resource.</span><br><span class="line">    engineResource.release();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void onEngineJobComplete(Key key, EngineResource&lt;?&gt; resource) &#123;</span><br><span class="line">    Util.assertMainThread();</span><br><span class="line">    // A null resource indicates that the load failed, usually due to an exception.</span><br><span class="line">    if (resource != null) &#123;</span><br><span class="line">        ///监听engineresource的释放,从activeResources中移除,移除时放入MemoryCache中</span><br><span class="line">        resource.setResourceListener(key, this);</span><br><span class="line"></span><br><span class="line">        if (resource.isCacheable()) &#123;</span><br><span class="line">            ///将resource放到activeResources中</span><br><span class="line">            activeResources.put(key, new ResourceWeakReference(key, resource, getReferenceQueue()));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // TODO: should this check that the engine job is still current?</span><br><span class="line">    jobs.remove(key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">public void onResourceReleased(Key cacheKey, EngineResource resource) &#123;</span><br><span class="line">    Util.assertMainThread();</span><br><span class="line">    activeResources.remove(cacheKey);</span><br><span class="line">    if (resource.isCacheable()) &#123;</span><br><span class="line">        ///将resource转移到cache中</span><br><span class="line">        cache.put(cacheKey, resource);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        resourceRecycler.recycle(resource);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意 listener.onEngineJobComplete(key, engineResource) ，这里的 listener 正是 EngineJob 自身。在 EngineJob 的 onEngineJobComplete() 方法中给 EngineResource 设置了一个 ResourceListener，并且如果没有设置跳过内存缓存，将 EngineResource 放入 activeResources 中。那么 ResourceListener 做了什么呢？</p>
-<p>ResourceListener 接口中只有 onResourceReleased() 一个方法，当 EngineResource 需要被释放时会回调该方法来通知监听者。这里的监听者正是 EngineJob，在 EngineJob 的 onResourceReleased() 方法中，将 EngineResource 从 activeResources 中删除，并且如果没有设置跳过内存缓存，则放入 MemoryCache 中，否则回收 EngineResource。这讲导致 EngineResource 中持有的 Bitmap 回收到 BitmapPool 中，等待复用。</p>
-<p>接着图片将显示到 Target 上，加载流程结束，其中涉及的缓存操作也分析完毕。</p>
-<p>那么，我们以缓存作为重点将加载流程梳理一下，就得到这样一个流程图</p>
-<center><img src="http://o8swcawjo.bkt.clouddn.com/%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B.png" alt="缓存流程"></center>
-
-<p>现在应该对整个缓存的流程有一个整体的认识了，下面将逐一各部分的内部细节，将涉及内存缓存、磁盘缓存和 BitmapPool。</p>
-<h3 id="内存缓存"><a href="#内存缓存" class="headerlink" title="内存缓存"></a>内存缓存</h3><p>Glide 的内存缓存并不像传统的那样仅仅使用 强引用+LRU 算法，还加入了 ActiveResource 这个概念。防止 LruResourceCache 回收了正在使用的资源。</p>
-<p>LruResourceCache + BitmapPool 缓存的最大空间默认为应用可用最大内存*0.4，低配手机是应用可用最大内存*0.33.</p>
-<h4 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h4><p>内存缓存包括 LruResourceCache 和 ActiveResources 存储的对象都是 EngineResource 对象。它是 Resource 对象的封装，并且内部维护对 Resource 的引用计数。调用 acquire() 引用计数+1，调用 release() 引用计数-1.当调用 release() 后引用计数为0时，由 ResourceListener（目前只有 Engine）来将其从 ActiveResources 移除并决定放入 LruResourceCache 还是调用 Resouece 的 recycler() 方法来回收相关资源，例如将 Bitmap 放入 BitmapPool。</p>
-<h4 id="LruResourceCache"><a href="#LruResourceCache" class="headerlink" title="LruResourceCache"></a>LruResourceCache</h4><p>LruResourceCache 用于保存最近被使用但是当前不在使用的资源。它的最大容量与屏幕分辨率和 Bitmap 质量参数有关，默认是 宽度 Pixels*高度 Piexls*ARGB_8888图片的质量参数*2,这样至少足够缓存两个屏幕大小的图片了。当容量过大时，使用 LRU 算法来移除最近最少使用的缓存项。</p>
-<p>LruResourceCache 实现了 MemoryCache 接口，提供了 get()、remove()、getCurrentSize()、setResourceRemovedListener() 等方法，要注意的是并没有提供 get() 方法，在 Glide 中读取 LruResourceCache 往往是为了放入 ActiveResources，所以用 remove() 就足够了。同时继承了 LruCache，缓存逻辑的实现主要来自于 LruCache。LruCache 内部使用 LinkedHashMap 来实现 LRU 算法。没有十分复杂的逻辑，就不详细分析了。</p>
-<p>还有值得注意的是，Engine 通过 setResourceRemovedListener() 方法设置了 ResourceRemovedListener。当一个缓存项因为 LruResourceCache 容量过大使用 LRU 算法被移除(不包括调用 remove() 方法移除的情况)时，将接受到 onResourceRemoved() 回调。Engine 在 onResourceRemoved() 调用了 Resource 的 recycler() 方法，这意味着 Resource 持有的 Bitmap 将会放入到 BitmapPool 中。</p>
-<p>总结一下，LruResourceCache 用于保存最近被使用但是当前不在使用的资源。其中缓存的来源只有一个：ActiveResources。当 ActiveResources 中的缓存不再被使用时，会被移除，放入 LruResourceCache 中。缓存的去向有两个：一个是缓存通过 remove() 被读取时，转移到 ActiveResources 中，第二个是最近使用较少被 LRU 算法移除，然后相关的 Bitmap 资源回收到 BitmapPool。</p>
-<h4 id="ActiveResources"><a href="#ActiveResources" class="headerlink" title="ActiveResources"></a>ActiveResources</h4><p>ActiveResources 用于保存当前正在使用的资源，它其实就是一个裸露的 HashMap，对缓存的读取与写入就是 get() 和 put() 方法的调用。它使用 EngineKey 为键，使用 EngineResource 的弱引用为值。所以也没有容量大小可言。</p>
-<p>虽说 ActiveResources 中的资源是当前正在使用的资源，Glide 也提供了负责清理 ActiveResources 弱可达资源的实现(可能是某些特殊场景下没有调用 release() 会导致 ActiveResources 中的资源实际上不在使用了？)。实现方法是构造 EngineResource 的弱引用 WeakReference 时传进 ReferenceQueue 来监听弱引用的回收。当系统检测到该 EngineResource 是弱可达，即不在被使用时，就将该弱引用放入 ReferenceQueue 中。如果 ReferenceQueue 不为空，就说明 EngineResource 该被回收了，可是在什么时候回收呢？</p>
-<p>Glide 在当前线程对应 Looper 所对应的 MessageQueue 中通过 addIdleHandler() 方法添加了一个 IdleHandler 实例 RefQueueIdleHandler，当 MessageQueue 空闲的时候就会回调 IdleHandler 的 queueIdle() 方法，在 queueIdle() 方法中清理 WeakReference 被回收的 activeResources 资源。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">private EngineResource&lt;?&gt; loadFromCache(Key key, boolean isMemoryCacheable) &#123;</span><br><span class="line">    if (!isMemoryCacheable) &#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    EngineResource&lt;?&gt; cached = getEngineResourceFromCache(key);</span><br><span class="line">    if (cached != null) &#123;</span><br><span class="line">        cached.acquire();</span><br><span class="line">        activeResources.put(key, new ResourceWeakReference(key, cached, getReferenceQueue()));</span><br><span class="line">    &#125;</span><br><span class="line">    return cached;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static class ResourceWeakReference extends WeakReference&lt;EngineResource&lt;?&gt;&gt; &#123;</span><br><span class="line">    private final Key key;</span><br><span class="line"></span><br><span class="line">    public ResourceWeakReference(Key key, EngineResource&lt;?&gt; r, ReferenceQueue&lt;? super EngineResource&lt;?&gt;&gt; q) &#123;</span><br><span class="line">        super(r, q);</span><br><span class="line">        this.key = key;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private ReferenceQueue&lt;EngineResource&lt;?&gt;&gt; getReferenceQueue() &#123;</span><br><span class="line">    if (resourceReferenceQueue == null) &#123;</span><br><span class="line">        resourceReferenceQueue = new ReferenceQueue&lt;EngineResource&lt;?&gt;&gt;();</span><br><span class="line">        MessageQueue queue = Looper.myQueue();</span><br><span class="line">        queue.addIdleHandler(new RefQueueIdleHandler(activeResources, resourceReferenceQueue));</span><br><span class="line">    &#125;</span><br><span class="line">    return resourceReferenceQueue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Responsible for cleaning up the active resource map by remove weak references that have been cleared.</span><br><span class="line">private static class RefQueueIdleHandler implements MessageQueue.IdleHandler &#123;</span><br><span class="line">    private final Map&lt;Key, WeakReference&lt;EngineResource&lt;?&gt;&gt;&gt; activeResources;</span><br><span class="line">    private final ReferenceQueue&lt;EngineResource&lt;?&gt;&gt; queue;</span><br><span class="line"></span><br><span class="line">    public RefQueueIdleHandler(Map&lt;Key, WeakReference&lt;EngineResource&lt;?&gt;&gt;&gt; activeResources,</span><br><span class="line">            ReferenceQueue&lt;EngineResource&lt;?&gt;&gt; queue) &#123;</span><br><span class="line">        this.activeResources = activeResources;</span><br><span class="line">        this.queue = queue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean queueIdle() &#123;</span><br><span class="line">        ResourceWeakReference ref = (ResourceWeakReference) queue.poll();</span><br><span class="line">        if (ref != null) &#123;</span><br><span class="line">            activeResources.remove(ref.key);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="磁盘缓存"><a href="#磁盘缓存" class="headerlink" title="磁盘缓存"></a>磁盘缓存</h3><p>除了内存缓存之外， Glide 还设计了磁盘缓存。磁盘缓存的默认路径在 /data/data/\<application package\="">/cache/image_manager_disk_cache,默认的大小为 250MB，默认的实现类是 DiskLruCacheWrapper。</application></p>
-<p>Glide 的磁盘缓存默认只缓存处理图，不过可以根据需要通过设置 DiskCacheStrategy 来定制缓存策略。Glide 中不管是原图还是处理图，每张图片都与一个缓存文件对应，存取原图时使用 OriginalKey,内部封装了图片的 Url 和 Signature 信息。而存取处理图时使用 EngineKey 内部封装了图片的 Url 和 Signature 之外，还包括图片尺寸和图片处理流程中相关的 Decoder、Encoder、Transformation 所返回的 id，，通过这些信息就能唯一确定一张图片了。</p>
-<h4 id="DiskLruCacheWrapper"><a href="#DiskLruCacheWrapper" class="headerlink" title="DiskLruCacheWrapper"></a>DiskLruCacheWrapper</h4><p>DiskLruCacheWrapper 实现了 DiskCache 接口，提供的方法非常简洁，提供了 get()、put()、delete()、clear() 四个方法。DiskLruCacheWrapper 内部封装了 DiskLruCache 对象，缓存文件的管理由它来完成。</p>
-<p>下面从 DiskLruCacheWrapper 的角度分析一下缓存的写入与读取。</p>
-<h5 id="缓存写入"><a href="#缓存写入" class="headerlink" title="缓存写入"></a>缓存写入</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">public File get(Key key) &#123;</span><br><span class="line">    ///使用SHA-256算法生成唯一String</span><br><span class="line">    String safeKey = safeKeyGenerator.getSafeKey(key);</span><br><span class="line">    File result = null;</span><br><span class="line">    try &#123;</span><br><span class="line">        //It is possible that the there will be a put in between these two gets. If so that shouldn&apos;t be a problem</span><br><span class="line">        //because we will always put the same value at the same key so our input streams will still represent</span><br><span class="line">        //the same data</span><br><span class="line">        final DiskLruCache.Value value = getDiskCache().get(safeKey);</span><br><span class="line">        if (value != null) &#123;</span><br><span class="line">            result = value.getFile(0);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        if (Log.isLoggable(TAG, Log.WARN)) &#123;</span><br><span class="line">            Log.w(TAG, &quot;Unable to get from disk cache&quot;, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public String getSafeKey(Key key) &#123;</span><br><span class="line">    String safeKey;</span><br><span class="line">    synchronized (loadIdToSafeHash) &#123;</span><br><span class="line">        safeKey = loadIdToSafeHash.get(key);</span><br><span class="line">    &#125;</span><br><span class="line">    if (safeKey == null) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            MessageDigest messageDigest = MessageDigest.getInstance(&quot;SHA-256&quot;);</span><br><span class="line">            key.updateDiskCacheKey(messageDigest);</span><br><span class="line">            safeKey = Util.sha256BytesToHex(messageDigest.digest());</span><br><span class="line">        &#125; catch (UnsupportedEncodingException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (NoSuchAlgorithmException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        synchronized (loadIdToSafeHash) &#123;</span><br><span class="line">            loadIdToSafeHash.put(key, safeKey);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return safeKey;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private synchronized DiskLruCache getDiskCache() throws IOException &#123;</span><br><span class="line">    if (diskLruCache == null) &#123;</span><br><span class="line">        diskLruCache = DiskLruCache.open(directory, APP_VERSION, VALUE_COUNT, maxSize);</span><br><span class="line">    &#125;</span><br><span class="line">    return diskLruCache;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>put() 方法首先调用 getSafeKey() 方法将 Key 转化为一个唯一的字符串，原理是将 Key 中封装的信息(原图就是图片的 Url，处理图就是 Url、尺寸、Decoder等)通过 SHA-256 算法进行编码。缓存的存取都是使用这个字符串，同时这也是缓存文件的文件名。</p>
-<p>getDiskCache() 方法返回了 DiskLruCache，方法内部调用了它的静态方法 open() 来创建或返回一个现有的 DiskLruCache 实例。</p>
-<p>返回 DiskLruCache 实例之后，通过之前生成的字符串作为参数调用了它的 get() 方法，该方法 返回 DiskLruCache.Value 对象，然后通过 Value 对象来返回一个缓存文件。DiskLruCacheWrapper 就完成了，之后就由 ResourceDecoder 获取文件的 InputSteream 然后解码成 Bitmap 了。</p>
-<p>put() 的逻辑非常简单，因为 DiskLruCache 已经封装了缓存实现的细节。DiskLruCache 的实现细节后面再详细分析。</p>
-<h5 id="缓存读取"><a href="#缓存读取" class="headerlink" title="缓存读取"></a>缓存读取</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">public void put(Key key, Writer writer) &#123;</span><br><span class="line">    String safeKey = safeKeyGenerator.getSafeKey(key);</span><br><span class="line">    writeLocker.acquire(key);</span><br><span class="line">    try &#123;</span><br><span class="line">        DiskLruCache.Editor editor = getDiskCache().edit(safeKey);</span><br><span class="line">        // Editor will be null if there are two concurrent puts. In the worst case we will just silently fail.</span><br><span class="line">        if (editor != null) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                File file = editor.getFile(0);</span><br><span class="line">                if (writer.write(file)) &#123;</span><br><span class="line">                    editor.commit();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; finally &#123;</span><br><span class="line">                editor.abortUnlessCommitted();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        if (Log.isLoggable(TAG, Log.WARN)) &#123;</span><br><span class="line">            Log.w(TAG, &quot;Unable to put to disk cache&quot;, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">        writeLocker.release(key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class SourceWriter&lt;DataType&gt; implements DiskCache.Writer &#123;</span><br><span class="line"></span><br><span class="line">    private final Encoder&lt;DataType&gt; encoder;</span><br><span class="line">    private final DataType data;</span><br><span class="line"></span><br><span class="line">    public SourceWriter(Encoder&lt;DataType&gt; encoder, DataType data) &#123;</span><br><span class="line">        this.encoder = encoder;</span><br><span class="line">        this.data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean write(File file) &#123;</span><br><span class="line">        boolean success = false;</span><br><span class="line">        OutputStream os = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            os = fileOpener.open(file);</span><br><span class="line">            success = encoder.encode(data, os);</span><br><span class="line">        &#125; catch (FileNotFoundException e) &#123;</span><br><span class="line">            if (Log.isLoggable(TAG, Log.DEBUG)) &#123;</span><br><span class="line">                Log.d(TAG, &quot;Failed to find file to write to disk cache&quot;, e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            if (os != null) &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    os.close();</span><br><span class="line">                &#125; catch (IOException e) &#123;</span><br><span class="line">                    // Do nothing.</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return success;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>put() 方法接收两个参数，Key 和 Writer，实际上接收的是 SourceWriter 实例，其内部封装了一个 Encoder。put() 方法内部也是先生成字符串 safeKey，然后通过 DiskLruCache 实例的 edit() 方法来获取一个 Editor 实例，进而获取一个缓存文件。然后调用 Writer 的 write() 方法，write() 方法内部将数据写入缓存文件的 OutputStream 中。数据写入完成后调用 Editor 的 commit() 方法来刷新数据。</p>
-<p>看来 put() 和 get() 方法的逻辑都比较简单，都是通过 Key 生成字符串，然后通过字符串获取对应的缓存文件，然后使 ResourceDecoder 或者 Encoder 来读取或者写入数据。那么我们来看看 DiskLruCache 是怎么管理缓存文件的。</p>
-<h4 id="DiskLruCache"><a href="#DiskLruCache" class="headerlink" title="DiskLruCache"></a>DiskLruCache</h4><p>DiskLruCache 表示磁盘缓存，它管理了多个缓存文件，每个 Key 对应一个或多个缓存文件，运行时相关信息保存在一个 LinkedHashMap 中，LinkedHashMap 以 String 为键，以一个 Entry 对象为值。当容量过大时使用 LinkedHashMap 的 LRU 算法来移除 Entry。</p>
-<p>Entry 用来表示一个缓存实体，封装了一些相关信息。我们看看它的构造函数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">private Entry(String key) &#123;</span><br><span class="line">  this.key = key;</span><br><span class="line">  ///valueCount默认是1</span><br><span class="line">  this.lengths = new long[valueCount];</span><br><span class="line">  cleanFiles = new File[valueCount];</span><br><span class="line">  dirtyFiles = new File[valueCount];</span><br><span class="line"></span><br><span class="line">  // The names are repetitive so re-use the same builder to avoid allocations.</span><br><span class="line">  StringBuilder fileBuilder = new StringBuilder(key).append(&apos;.&apos;);</span><br><span class="line">  int truncateTo = fileBuilder.length();</span><br><span class="line">  for (int i = 0; i &lt; valueCount; i++) &#123;</span><br><span class="line">      fileBuilder.append(i);</span><br><span class="line">    ///cleanFiles用key.1命名</span><br><span class="line">      cleanFiles[i] = new File(directory, fileBuilder.toString());</span><br><span class="line">      fileBuilder.append(&quot;.tmp&quot;);</span><br><span class="line">    ///dirtyFiles用key.1.tmp命名</span><br><span class="line">      dirtyFiles[i] = new File(directory, fileBuilder.toString());</span><br><span class="line">      fileBuilder.setLength(truncateTo);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可见 Entry 封装了 Key，对应的缓存文件和文件大小等信息。一个缓存实体对应两个缓存文件，cleanFile 文件中的数据时刻是干净可读的，dirtyFile 的作用是作为临时文件，当需要写入缓存时，返回的是 dirtyFile，等调用 commit() 方法时再更新数据。这样缓存的写入时也不会影响缓存的读取了。dirtyFile 用 key.1命名，dirtyFiles 用 key.1.tmp 命名，知道缓存 Key 就知道对应的缓存文件了。</p>
-<h5 id="缓存构建"><a href="#缓存构建" class="headerlink" title="缓存构建"></a>缓存构建</h5><p>磁盘缓存与内存缓存不同，内存缓存在程序每次重新启动时都是空白的全新的状态，需要一个预热的过程，等缓存写入一定量的时候才能开始发挥作用，而磁盘缓存则不能受程序重新启动的影响，程序重新启动时，要能够自动恢复到上次运行的状态，每个 Key 对应哪个缓存文件、每个缓存的大小、哪些缓存文件的数据是干净的、哪些缓存文件的数据是不正常的写入需要删除、当前磁盘缓存的大小等等，都需要实时管理好。这就需要有一个文件实时记录下磁盘缓存的相关信息，以便能够随时恢复。DiskLruCache 就用到了这样一个文件，文件名为 journal。我们先来看看该文件的格式。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">libcore.io.DiskLruCache</span><br><span class="line">1</span><br><span class="line">100</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">CLEAN 3400330d1dfc7f3f7f4b8d4d803dfcf6 832</span><br><span class="line">DIRTY 335c4c6028171cfddfbaae1a9c313c52</span><br><span class="line">CLEAN 335c4c6028171cfddfbaae1a9c313c52 3934</span><br><span class="line">REMOVE 335c4c6028171cfddfbaae1a9c313c52</span><br><span class="line">DIRTY 1ab96a171faeeee38496d8b330771a7a</span><br><span class="line">CLEAN 1ab96a171faeeee38496d8b330771a7a 1600</span><br><span class="line">READ 335c4c6028171cfddfbaae1a9c313c52</span><br><span class="line">READ 3400330d1dfc7f3f7f4b8d4d803dfcf6</span><br></pre></td></tr></table></figure>
-<p>这是典型的 journal 文件内容。文件的前5行是文件头</p>
-<ul>
-<li>第一行 固定为 libcore.io.DiskLruCache</li>
-<li>第二行 版本号，源码中定为1</li>
-<li>第三行 应用版本号，由 DiskLruCache 的使用者指定</li>
-<li>第四行 valueCount，每个 Key 对应几个文件，源码中定为1</li>
-<li>第五行 空行</li>
-</ul>
-<p>第6行开始记录的是磁盘缓存的操作记录，每一行的格式为操作类型+Key+可选数据项。数据项之间用空格分隔，如果操作类型是 CLEAN，那么可选数据项是数字，描述缓存文件的大小。下面介绍一下四种操作类型</p>
-<ul>
-<li>DIRTY 表示一个 Entry 被创建或正在写入，一个合法的 DIRTY 操作后面必须接着 CLEAN 操作或者 REMOVE 操作，否则表示该文件只是临时文件，应该被删除。</li>
-<li>CLEAN 表示一个 Entry 被成功写入，可以被读取。CLEAN 行后面应该接着 valueCount 个数字表示每个缓存文件的大小</li>
-<li>READ 表示一个 Entry 被读取</li>
-<li>REMOVE 表示一个 Entry 被删除</li>
-</ul>
-<p>journal 文件记录了每一个对磁盘缓存的操作，通过读取这个文件，程序就能还原出磁盘缓存的状态了。下面来看看磁盘缓存具体的构建过程。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">  public static DiskLruCache open(File directory, int appVersion, int valueCount, long maxSize)</span><br><span class="line">    throws IOException &#123;</span><br><span class="line">  if (maxSize &lt;= 0) &#123;</span><br><span class="line">    throw new IllegalArgumentException(&quot;maxSize &lt;= 0&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  if (valueCount &lt;= 0) &#123;</span><br><span class="line">    throw new IllegalArgumentException(&quot;valueCount &lt;= 0&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // If a bkp file exists, use it instead.</span><br><span class="line">  ///判断是否有journal备份文件,如果有则进一步判断有无journal源文件,有则删除备份文件,无则将备份文件改名为源文件</span><br><span class="line">  File backupFile = new File(directory, JOURNAL_FILE_BACKUP);</span><br><span class="line">  if (backupFile.exists()) &#123;</span><br><span class="line">    File journalFile = new File(directory, JOURNAL_FILE);</span><br><span class="line">    // If journal file also exists just delete backup file.</span><br><span class="line">    if (journalFile.exists()) &#123;</span><br><span class="line">      backupFile.delete();</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      renameTo(backupFile, journalFile, false);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // Prefer to pick up where we left off.</span><br><span class="line">  ///有journal源文件则从该文件中加载到新的DiskLruCache</span><br><span class="line">  DiskLruCache cache = new DiskLruCache(directory, appVersion, valueCount, maxSize);</span><br><span class="line">  if (cache.journalFile.exists()) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">      cache.readJournal();</span><br><span class="line">      cache.processJournal();</span><br><span class="line">      return cache;</span><br><span class="line">    &#125; catch (IOException journalIsCorrupt) &#123;</span><br><span class="line">      System.out</span><br><span class="line">          .println(&quot;DiskLruCache &quot;</span><br><span class="line">              + directory</span><br><span class="line">              + &quot; is corrupt: &quot;</span><br><span class="line">              + journalIsCorrupt.getMessage()</span><br><span class="line">              + &quot;, removing&quot;);</span><br><span class="line">      cache.delete();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // Create a new empty cache.</span><br><span class="line">  ///既没有备份文件也没有原journal文件,新建一个</span><br><span class="line">  directory.mkdirs();</span><br><span class="line">  cache = new DiskLruCache(directory, appVersion, valueCount, maxSize);</span><br><span class="line">  cache.rebuildJournal();</span><br><span class="line">  return cache;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>DiskLruCache 在 open() 方法中构建。构建 DiskLruCache 需要指定目录、应用版本、每个 Key 的缓存文件个数、磁盘缓存的最大容量。</p>
-<p>程序首先判断是否有 journal 备份文件(备份文件命名为 journal.bkp)，如果有的话则进一步判断有无 journal 原文件，有则删除备份文件，无则将备份文件改名为原文件。</p>
-<p>接下来再次判断 journal 文件是否存在</p>
-<ul>
-<li><p>journal 文件存在</p>
-<p>如果 journal 文件存在则调用 readJournal() 和 processJournal() 方法。先来看 readJournal()</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">private void readJournal() throws IOException &#123;</span><br><span class="line">  StrictLineReader reader = new StrictLineReader(new FileInputStream(journalFile), Util.US_ASCII);</span><br><span class="line">  try &#123;</span><br><span class="line">    ///校验文件头</span><br><span class="line">    String magic = reader.readLine();</span><br><span class="line">    String version = reader.readLine();</span><br><span class="line">    String appVersionString = reader.readLine();</span><br><span class="line">    String valueCountString = reader.readLine();</span><br><span class="line">    String blank = reader.readLine();</span><br><span class="line">    if (!MAGIC.equals(magic)</span><br><span class="line">        || !VERSION_1.equals(version)</span><br><span class="line">        || !Integer.toString(appVersion).equals(appVersionString)</span><br><span class="line">        || !Integer.toString(valueCount).equals(valueCountString)</span><br><span class="line">        || !&quot;&quot;.equals(blank)) &#123;</span><br><span class="line">      throw new IOException(&quot;unexpected journal header: [&quot; + magic + &quot;, &quot; + version + &quot;, &quot;</span><br><span class="line">          + valueCountString + &quot;, &quot; + blank + &quot;]&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    int lineCount = 0;</span><br><span class="line">    while (true) &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">        ///处理一行</span><br><span class="line">        readJournalLine(reader.readLine());</span><br><span class="line">        lineCount++;</span><br><span class="line">      &#125; catch (EOFException endOfJournal) &#123;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    redundantOpCount = lineCount - lruEntries.size();</span><br><span class="line"></span><br><span class="line">    // If we ended on a truncated line, rebuild the journal before appending to it.</span><br><span class="line">    if (reader.hasUnterminatedLine()) &#123;</span><br><span class="line">      rebuildJournal();</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      journalWriter = new BufferedWriter(new OutputStreamWriter(</span><br><span class="line">          new FileOutputStream(journalFile, true), Util.US_ASCII));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; finally &#123;</span><br><span class="line">    Util.closeQuietly(reader);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>首先校验文件头，然后循环调用 readJournalLine() 方法处理每一行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">private void readJournalLine(String line) throws IOException &#123;</span><br><span class="line">  int firstSpace = line.indexOf(&apos; &apos;);</span><br><span class="line">  if (firstSpace == -1) &#123;</span><br><span class="line">    throw new IOException(&quot;unexpected journal line: &quot; + line);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ///从行中读取key 格式 REMOVE|CLEAN|DIRTY key 文件大小(知道了key也就知道了key对应的cleanFile和dirtyFile)</span><br><span class="line">  int keyBegin = firstSpace + 1;</span><br><span class="line">  int secondSpace = line.indexOf(&apos; &apos;, keyBegin);</span><br><span class="line">  final String key;</span><br><span class="line">  if (secondSpace == -1) &#123;</span><br><span class="line">    key = line.substring(keyBegin);</span><br><span class="line">    ///处理 remove</span><br><span class="line">    if (firstSpace == REMOVE.length() &amp;&amp; line.startsWith(REMOVE)) &#123;</span><br><span class="line">      lruEntries.remove(key);</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    key = line.substring(keyBegin, secondSpace);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Entry entry = lruEntries.get(key);</span><br><span class="line">  if (entry == null) &#123;</span><br><span class="line">    entry = new Entry(key);</span><br><span class="line">    lruEntries.put(key, entry);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ///如果是clean,那么readable就为true</span><br><span class="line">  if (secondSpace != -1 &amp;&amp; firstSpace == CLEAN.length() &amp;&amp; line.startsWith(CLEAN)) &#123;</span><br><span class="line">    String[] parts = line.substring(secondSpace + 1).split(&quot; &quot;);</span><br><span class="line">    entry.readable = true;</span><br><span class="line">    entry.currentEditor = null;</span><br><span class="line">    entry.setLengths(parts);</span><br><span class="line">  &#125; else if (secondSpace == -1 &amp;&amp; firstSpace == DIRTY.length() &amp;&amp; line.startsWith(DIRTY)) &#123;</span><br><span class="line">    entry.currentEditor = new Editor(entry);</span><br><span class="line">  &#125; else if (secondSpace == -1 &amp;&amp; firstSpace == READ.length() &amp;&amp; line.startsWith(READ)) &#123;</span><br><span class="line">    // This work was already done by calling lruEntries.get().</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    throw new IOException(&quot;unexpected journal line: &quot; + line);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>先取出行中的 Key，如果是 REMOVE 操作，则将 Entry 从 LinkedHashMap 中移除。一个 Entry 表示一个缓存实体，封装了 Key、对应的缓存文件、文件大小 等信息。</p>
-<p>如果 Key 对应的 Entry 不存在，则创建一个，然后放入 LinkedHashMap 中。最后根据操作类型 CLEAN 还是 DIRTY，进行一些属性初始化。如果 Entry 的 currentEditor 属性不为空，表示当前正在写入。</p>
-<p>readJournalLine() 主要就是读取 journal 文件按照操作记录来还原了 LinkedHashMap。但是仔细分析可以发现它还没处理好那些单独出现的 DIRTY 记录，这些 Entry 应在被删除。那么我们接下来看看 processJournal() 方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">private void processJournal() throws IOException &#123;</span><br><span class="line">  deleteIfExists(journalFileTmp);</span><br><span class="line">  for (Iterator&lt;Entry&gt; i = lruEntries.values().iterator(); i.hasNext(); ) &#123;</span><br><span class="line">    Entry entry = i.next();</span><br><span class="line">    if (entry.currentEditor == null) &#123;</span><br><span class="line">      for (int t = 0; t &lt; valueCount; t++) &#123;</span><br><span class="line">        size += entry.lengths[t];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      entry.currentEditor = null;</span><br><span class="line">      for (int t = 0; t &lt; valueCount; t++) &#123;</span><br><span class="line">        deleteIfExists(entry.getCleanFile(t));</span><br><span class="line">        deleteIfExists(entry.getDirtyFile(t));</span><br><span class="line">      &#125;</span><br><span class="line">      i.remove();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>processJournal() 果然对这部分 Entry 做了清理，判断依据是如果是单独出现的 DIRTY 记录，那么该 Entry 的 currentEditor 必定是不为空的。同时 processJournal() 也统计了当前磁盘磁盘缓存的大小。</p>
-<p> 那么 journal 文件存在的情况就分析完了。</p>
-<ul>
-<li><p>journal 文件不存在</p>
-<p>如果文件不存在，则创建目录，新建 DiskLryCache ，调用 rebuildJournal() 方法生成 journal 文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">private synchronized void rebuildJournal() throws IOException &#123;</span><br><span class="line">  if (journalWriter != null) &#123;</span><br><span class="line">    journalWriter.close();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Writer writer = new BufferedWriter(</span><br><span class="line">      new OutputStreamWriter(new FileOutputStream(journalFileTmp), Util.US_ASCII));</span><br><span class="line">  try &#123;</span><br><span class="line">    writer.write(MAGIC);</span><br><span class="line">    writer.write(&quot;\n&quot;);</span><br><span class="line">    writer.write(VERSION_1);</span><br><span class="line">    writer.write(&quot;\n&quot;);</span><br><span class="line">    writer.write(Integer.toString(appVersion));</span><br><span class="line">    writer.write(&quot;\n&quot;);</span><br><span class="line">    writer.write(Integer.toString(valueCount));</span><br><span class="line">    writer.write(&quot;\n&quot;);</span><br><span class="line">    writer.write(&quot;\n&quot;);</span><br><span class="line"></span><br><span class="line">    for (Entry entry : lruEntries.values()) &#123;</span><br><span class="line">      if (entry.currentEditor != null) &#123;</span><br><span class="line">        writer.write(DIRTY + &apos; &apos; + entry.key + &apos;\n&apos;);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        writer.write(CLEAN + &apos; &apos; + entry.key + entry.getLengths() + &apos;\n&apos;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; finally &#123;</span><br><span class="line">    writer.close();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (journalFile.exists()) &#123;</span><br><span class="line">    renameTo(journalFile, journalFileBackup, true);</span><br><span class="line">  &#125;</span><br><span class="line">  renameTo(journalFileTmp, journalFile, false);</span><br><span class="line">  journalFileBackup.delete();</span><br><span class="line"></span><br><span class="line">  journalWriter = new BufferedWriter(</span><br><span class="line">      new OutputStreamWriter(new FileOutputStream(journalFile, true), Util.US_ASCII));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>首先创建 journal.tmp 文件，写入文件头，然后将临时文件重新命名为 journal 原文件。</p>
-<p>那么 DiskLruCache 磁盘缓存的构建就分析完毕了，主要是当操作日志文件 journal 文件存在时，通过读取文件来还原 LinkHashMap，同时统计当前磁盘缓存的大小。</p>
-<h5 id="缓存写入-1"><a href="#缓存写入-1" class="headerlink" title="缓存写入"></a>缓存写入</h5><p>需要写入缓存时，通常先调用 edit() 方法获取一个 Editor 对象，通过该对象的 getFile() 方法获取一个文件以供写入缓存，写入成功后 调用 Editor 对象的 commit() 方法来提交写入的数据。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public Editor edit(String key) throws IOException &#123;</span><br><span class="line">  return edit(key, ANY_SEQUENCE_NUMBER);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private synchronized Editor edit(String key, long expectedSequenceNumber) throws IOException &#123;</span><br><span class="line">  checkNotClosed();</span><br><span class="line">  Entry entry = lruEntries.get(key);</span><br><span class="line">  if (expectedSequenceNumber != ANY_SEQUENCE_NUMBER &amp;&amp; (entry == null</span><br><span class="line">      || entry.sequenceNumber != expectedSequenceNumber)) &#123;</span><br><span class="line">    return null; // Value is stale.</span><br><span class="line">  &#125;</span><br><span class="line">  if (entry == null) &#123;</span><br><span class="line">    entry = new Entry(key);</span><br><span class="line">    lruEntries.put(key, entry);</span><br><span class="line">  &#125; else if (entry.currentEditor != null) &#123;</span><br><span class="line">    return null; // Another edit is in progress.</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Editor editor = new Editor(entry);</span><br><span class="line">  entry.currentEditor = editor;</span><br><span class="line"></span><br><span class="line">  // Flush the journal before creating files to prevent file leaks.</span><br><span class="line">  journalWriter.append(DIRTY);</span><br><span class="line">  journalWriter.append(&apos; &apos;);</span><br><span class="line">  journalWriter.append(key);</span><br><span class="line">  journalWriter.append(&apos;\n&apos;);</span><br><span class="line">  journalWriter.flush();</span><br><span class="line">  return editor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>edit() 方法首先通过 key 在 LinkedHashMap 中获取 Entry，如果 Entry 为空则创建一个放入 LinkedHashMap 中。然后创建一个 Editor 对象并设置到 Entry 的 currentEditor 属性中。最后在 journal 新增一条 DIRTY 记录，表示该 key 的缓存文件正在被写入。</p>
-<p>接下来看看 Editor 的 getFile() 方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public File getFile(int index) throws IOException &#123;</span><br><span class="line">      synchronized (DiskLruCache.this) &#123;</span><br><span class="line">        if (entry.currentEditor != this) &#123;</span><br><span class="line">            throw new IllegalStateException();</span><br><span class="line">        &#125;</span><br><span class="line">        if (!entry.readable) &#123;</span><br><span class="line">            written[index] = true;</span><br><span class="line">        &#125;</span><br><span class="line">        File dirtyFile = entry.getDirtyFile(index);</span><br><span class="line">        if (!directory.exists()) &#123;</span><br><span class="line">            directory.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        return dirtyFile;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>getFile() 方法返回 Entry 对应的 dirtyFile。</p>
-<p>向 Editor 返回的文件写入缓存数据后，需要调用 commit() 方法提交数据，否则 dirtyFile 中的数据将被视为非法写入而被删除。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">  public void commit() throws IOException &#123;</span><br><span class="line">    // The object using this Editor must catch and handle any errors</span><br><span class="line">    // during the write. If there is an error and they call commit</span><br><span class="line">    // anyway, we will assume whatever they managed to write was valid.</span><br><span class="line">    // Normally they should call abort.</span><br><span class="line">    completeEdit(this, true);</span><br><span class="line">    committed = true;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  private synchronized void completeEdit(Editor editor, boolean success) throws IOException &#123;</span><br><span class="line">  Entry entry = editor.entry;</span><br><span class="line">  if (entry.currentEditor != editor) &#123;</span><br><span class="line">    throw new IllegalStateException();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // If this edit is creating the entry for the first time, every index must have a value.</span><br><span class="line">  ///如果这个记录以前有值,则readable为TRUE</span><br><span class="line">  if (success &amp;&amp; !entry.readable) &#123;</span><br><span class="line">    for (int i = 0; i &lt; valueCount; i++) &#123;</span><br><span class="line">      if (!editor.written[i]) &#123;</span><br><span class="line">        editor.abort();</span><br><span class="line">        throw new IllegalStateException(&quot;Newly created entry didn&apos;t create value for index &quot; + i);</span><br><span class="line">      &#125;</span><br><span class="line">      if (!entry.getDirtyFile(i).exists()) &#123;</span><br><span class="line">        editor.abort();</span><br><span class="line">        return;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  //将dirty重命名为clean</span><br><span class="line">  for (int i = 0; i &lt; valueCount; i++) &#123;</span><br><span class="line">    File dirty = entry.getDirtyFile(i);</span><br><span class="line">    if (success) &#123;</span><br><span class="line">      if (dirty.exists()) &#123;</span><br><span class="line">        File clean = entry.getCleanFile(i);</span><br><span class="line">        dirty.renameTo(clean);</span><br><span class="line">        long oldLength = entry.lengths[i];</span><br><span class="line">        long newLength = clean.length();</span><br><span class="line">        entry.lengths[i] = newLength;</span><br><span class="line">        size = size - oldLength + newLength;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      deleteIfExists(dirty);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  redundantOpCount++;</span><br><span class="line">  entry.currentEditor = null;</span><br><span class="line">  ///在journal文件中添加一条记录</span><br><span class="line">  if (entry.readable | success) &#123;</span><br><span class="line">    entry.readable = true;</span><br><span class="line">    journalWriter.append(CLEAN);</span><br><span class="line">    journalWriter.append(&apos; &apos;);</span><br><span class="line">    journalWriter.append(entry.key);</span><br><span class="line">    journalWriter.append(entry.getLengths());</span><br><span class="line">    journalWriter.append(&apos;\n&apos;);</span><br><span class="line"></span><br><span class="line">    if (success) &#123;</span><br><span class="line">      entry.sequenceNumber = nextSequenceNumber++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    lruEntries.remove(entry.key);</span><br><span class="line">    journalWriter.append(REMOVE);</span><br><span class="line">    journalWriter.append(&apos; &apos;);</span><br><span class="line">    journalWriter.append(entry.key);</span><br><span class="line">    journalWriter.append(&apos;\n&apos;);</span><br><span class="line">  &#125;</span><br><span class="line">  journalWriter.flush();</span><br><span class="line"></span><br><span class="line">  if (size &gt; maxSize || journalRebuildRequired()) &#123;</span><br><span class="line">    executorService.submit(cleanupCallable);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>commit() 方法内部又调用了 completeEdit() 方法。completeEdit() 方法主要将 dirtyFile 重命名为 cleanFile，重新计算缓存大小，然后在 journal 文件中增加一条 CLEAN 记录。</p>
-<p>redundantOpCount 变量用来记录磁盘缓存的操作次数，当操作次数大于某个值时，就会根据 LinkedHashMap 重新创建 journal 文件，以防止 journal 文件过大。</p>
-<h5 id="缓存读取-1"><a href="#缓存读取-1" class="headerlink" title="缓存读取"></a>缓存读取</h5><p>读取缓存时调用 get() 方法即可，它返回一个 Value 对象，表示 Entry 的一个快照。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public synchronized Value get(String key) throws IOException &#123;</span><br><span class="line">  checkNotClosed();</span><br><span class="line">  Entry entry = lruEntries.get(key);</span><br><span class="line">  if (entry == null) &#123;</span><br><span class="line">    return null;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (!entry.readable) &#123;</span><br><span class="line">    return null;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  for (File file : entry.cleanFiles) &#123;</span><br><span class="line">      // A file must have been deleted manually!</span><br><span class="line">      if (!file.exists()) &#123;</span><br><span class="line">          return null;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  redundantOpCount++;</span><br><span class="line">  journalWriter.append(READ);</span><br><span class="line">  journalWriter.append(&apos; &apos;);</span><br><span class="line">  journalWriter.append(key);</span><br><span class="line">  journalWriter.append(&apos;\n&apos;);</span><br><span class="line">  if (journalRebuildRequired()) &#123;</span><br><span class="line">    executorService.submit(cleanupCallable);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return new Value(key, entry.sequenceNumber, entry.cleanFiles, entry.lengths);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>主要是用过 key 获取 Entry 的 cleanFile，封装为 Value 对象返回，同时在 journal 文件中新增一条 READ 记录。</p>
-<h3 id="BitmapPool"><a href="#BitmapPool" class="headerlink" title="BitmapPool"></a>BitmapPool</h3><p>虽然有了图片内存缓存程序在一般情况都都能工作得很好，不会出现大的问题，但是内存缓存的容量总是有限度的，不能无限制地增长，所以程序还是会周期性的申请和释放内存。特别是在一个长列表快速滑动时，会造成大量的图片申请和释放，导致 GC 频繁，进而产生卡顿。</p>
-<p>应用运行时图片内存往往占相当大的一部分，如果这部分内存能够尽量的复用，就能够显著地减少内存的频繁申请和释放了。基于这个考虑，Glide 针对 Bitmap 设计了复用方案，这就是 BitmapPool。</p>
-<p>Glide 构建了一个 BitmapPool，图片的 Bitmap 的申请和释放都需要通过它来处理。需要加载新的图片时，先从 BitmapPool 中查找有没有相应大小或者稍大一点的 Bitmap，有则直接使用，没有再创建新的 Bimap。一个长列表中的图片往往是大小相同的，所以这个复用率还是相当可观的。</p>
-<p>BitmapPool 的最大容量与屏幕分辨率有关，默认是 宽度 Pixels*高度 Piexls*ARGB_8888图片的质量参数*4,这样至少足够缓存四个屏幕大小的图片。容量到达阈值时，使用 LRU 算法从最近最少使用的图片尺寸中移除图片。</p>
-<h5 id="复用策略"><a href="#复用策略" class="headerlink" title="复用策略"></a>复用策略</h5><p>BitmapPool 使用策略模式来封装不同的复用策略，策略接口是 LruPoolStrategy，定义了 put()、get()、getSize() 等方法。Glide 中有两种复用策略</p>
-<ul>
-<li>AttributeStrategy 复用的图片需要图片的尺寸和 Bitmap.Config 完全一致</li>
-<li>SizeConfigStrategy 复用要求相对宽松，复用的图片需要 Bitmap.Config 一致，但复用图片的所需内存比原图小即可。确保 Bitmap.Config 一致后，如果有内存大小一致的图片则直接复用，没有则选取内存稍大一点的图片。需要 KITKAT 以上版本</li>
-</ul>
-<p>Glide 在 KITKAT 以上系统中采用 SizeConfigStrategy，否则采用 AttributeStrategy。显然采取 SizeConfigStrategy 的复用率更高。之所以有这两者的区分，跟 Bitmap 的 reconfigure() 方法有关，BitmapPool 能够复用旧图片的内存得益于这个方法，这个方法是在 KITKAT(API 19) 增加的。该方法的注释如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * &lt;p&gt;Modifies the bitmap to have a specified width, height, and &#123;@link</span><br><span class="line"> * Config&#125;, without affecting the underlying allocation backing the bitmap.</span><br><span class="line"> * Bitmap pixel data is not re-initialized for the new configuration.&lt;/p&gt;</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;This method can be used to avoid allocating a new bitmap, instead</span><br><span class="line"> * reusing an existing bitmap&apos;s allocation for a new configuration of equal</span><br><span class="line"> * or lesser size. If the Bitmap&apos;s allocation isn&apos;t large enough to support</span><br><span class="line"> * the new configuration, an IllegalArgumentException will be thrown and the</span><br><span class="line"> * bitmap will not be modified.&lt;/p&gt;</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;The result of &#123;@link #getByteCount()&#125; will reflect the new configuration,</span><br><span class="line"> * while &#123;@link #getAllocationByteCount()&#125; will reflect that of the initial</span><br><span class="line"> * configuration.&lt;/p&gt;</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;WARNING: This method should NOT be called on a bitmap currently used</span><br><span class="line"> * by the view system. It does not make guarantees about how the underlying</span><br><span class="line"> * pixel buffer is remapped to the new config, just that the allocation is</span><br><span class="line"> * reused. Additionally, the view system does not account for bitmap</span><br><span class="line"> * properties being modifying during use, e.g. while attached to</span><br><span class="line"> * drawables.&lt;/p&gt;</span><br><span class="line"> *</span><br><span class="line"> * @see #setWidth(int)</span><br><span class="line"> * @see #setHeight(int)</span><br><span class="line"> * @see #setConfig(Config)</span><br><span class="line"> */</span><br><span class="line">public void reconfigure(int width, int height, Config config) &#123;</span><br><span class="line">    checkRecycled(&quot;Can&apos;t call reconfigure() on a recycled bitmap&quot;);</span><br><span class="line">    if (width &lt;= 0 || height &lt;= 0) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;width and height must be &gt; 0&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    if (!isMutable()) &#123;</span><br><span class="line">        throw new IllegalStateException(&quot;only mutable bitmaps may be reconfigured&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    if (mBuffer == null) &#123;</span><br><span class="line">        throw new IllegalStateException(&quot;native-backed bitmaps may not be reconfigured&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    nativeReconfigure(mNativeBitmap, width, height, config.nativeInt, mBuffer.length);</span><br><span class="line">    mWidth = width;</span><br><span class="line">    mHeight = height;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>简单来说，reconfigure() 方法能够在不重新初始化 Bitmap 和不影响底层内存分配的前提下修改 Bitmap 的尺寸和类型。使用该方法能够复用旧 Bitmap 的内存从而避免给新 Bitmap 分配内存。通过复用生成的 Bitmap，新的内存大小可以通过 getByteCount() 方法获得。</p>
-<p>由于 Bitmap 是复用的，所以它所映射的底层内存中还是原始图片的数据，所以 BitmapPool 将 Bitmap 返回给使用者前，还需要使用 Bitmap 的 eraseColor(Color.TRANSPARENT) 来擦除旧的数据。</p>
-<h4 id="LRU-算法实现"><a href="#LRU-算法实现" class="headerlink" title="LRU 算法实现"></a>LRU 算法实现</h4><p>BitmapPool 并没有使用 LruCache 来实现 LRU 功能，其内部使用 LinkedHashMap。而是自定义了一个数据结构 GroupedLinkedMap，其内部使用 HashMap，不同之处是其每个键对应的值是 LinkedEntry 对象，LinkedEntry 对象内部持有一个 ArrryList 来保存一组图片，并且持有 next 和 prev 引用指向其他 LinkedEntry，以构成一个双向链表，通过 makeTail() 和 makeHead() 方法来改变链表头尾的位置，从而实现 LRU 功能，其 LRU 算法针对的是对某尺寸的一组图片，而非某张图片。这样就能通过 Key 访问一组图片了。(其实本人觉得LruCache也可以实现，存的值类型是Arraylis 就好了)</p>
-<p>Glide 中的缓存机制算是介绍完了，本文先是从 Glide 的图片加载流程入手，还原出 Glide 缓存的整体设计。然后从 内存缓存、磁盘缓存、BitmapPool 三个方面分别介绍了各自的一些实现细节。由于本人水平有限，对 Glide 缓存机制的理解深度可能有些欠缺，如有发现文章中欠妥的地方欢迎指正。</p>
-<p>感谢阅读。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
 
   
 
@@ -631,10 +341,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/04/27/Glide源码解析（一）：加载流程/" itemprop="url">
-                  Glide源码解析（一）：加载流程
-                </a>
+                Glide源码解析（一）：加载流程
               
             
           </h1>
@@ -728,9 +435,7 @@
       
 
       
-        
-          
-            <h2 id="Glide源码解析（一）：加载流程"><a href="#Glide源码解析（一）：加载流程" class="headerlink" title="Glide源码解析（一）：加载流程"></a>Glide源码解析（一）：加载流程</h2><p>对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。</p>
+        <h2 id="Glide源码解析（一）：加载流程"><a href="#Glide源码解析（一）：加载流程" class="headerlink" title="Glide源码解析（一）：加载流程"></a>Glide源码解析（一）：加载流程</h2><p>对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。</p>
 <p>它们的使用场景基本都是重合的，而本人对 Glide 更为熟悉，所以选取 Glide 来进行深入学习，这系列文章作为学习的总结。选取的 Glide 版本是比较新的稳定版 3.7.0 。</p>
 <p>本篇是源码解析的开篇，主要分析 Glide 加载图片的基本流程。在后续的专题中再对缓存机制、生命周期监听等细节进行详细分析。</p>
 <h3 id="预热"><a href="#预热" class="headerlink" title="预热"></a>预热</h3><p>为了预防直接扎进源码的海洋带来的各种不适，做一下热身还是很有必要的。我们先抛开源码，从感性角度理解 Glide 成功显示出一张图片，需要经过哪些过程,由什么角色完成，这些角色有机结合起来就是整个基本流程了。</p>
@@ -977,212 +682,95 @@
 <p>那么，Glide 加载基本流程的源码分析就到此结束。我已经尽力将它描述清楚，希望各位有所收获。</p>
 <p>感谢坚持看到这里的你们。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://hefuyicoder.com/2017/04/15/听听，一款优雅的开源音乐播放器/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="乌有先生">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.png">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="乌有先生的个人博客">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="乌有先生的个人博客" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/15/听听，一款优雅的开源音乐播放器/" itemprop="url">
-                  听听，一款优雅的开源音乐播放器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-15T00:00:00+08:00">
-                2017-04-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/开源项目/" itemprop="url" rel="index">
-                    <span itemprop="name">开源项目</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/Glide/" rel="tag"># Glide</a>
           
-
+            <a href="/tags/源码分析/" rel="tag"># 源码分析</a>
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/04/15/听听，一款优雅的开源音乐播放器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/15/听听，一款优雅的开源音乐播放器/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/04/15/听听，一款优雅的开源音乐播放器/" class="leancloud_visitors" data-flag-title="听听，一款优雅的开源音乐播放器">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
         
-          <h3 id="ListenerMusicPlayer"><a href="#ListenerMusicPlayer" class="headerlink" title="ListenerMusicPlayer"></a>ListenerMusicPlayer</h3><p>一款优雅的遵循 Material Design 的开源音乐播放器，UI参考 腾讯轻听 音乐播放器,使用 Lastfm Api 与 酷狗歌词Api。项目架构采用 mvp-clean，基于 Retrofit2 + Dagger2 + RxJava + RxBus + Glide。</p>
-<p>github地址：<a href="https://github.com/hefuyicoder/ListenerMusicPlayer">ListenerMusicPlayer</a></p>
-<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><ul>
-<li>部分截图</li>
-</ul>
-<p><img src="http://o8swcawjo.bkt.clouddn.com/%E5%AF%BC%E8%88%AA%E6%A0%8F.png" alt="screenshots"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/15/听听，一款优雅的开源音乐播放器/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/15/听听，一款优雅的开源音乐播放器/" rel="next" title="听听，一款优雅的开源音乐播放器">
+                <i class="fa fa-chevron-left"></i> 听听，一款优雅的开源音乐播放器
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/08/Glide源码解析（二）：缓存机制/" rel="prev" title="Glide源码解析（二）：缓存机制">
+                Glide源码解析（二）：缓存机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
           
           </div>
@@ -1190,6 +778,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/04/27/Glide源码解析（一）：加载流程/"
+           data-title="Glide源码解析（一）：加载流程" data-url="http://hefuyicoder.com/2017/04/27/Glide源码解析（一）：加载流程/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -1209,8 +805,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -1277,6 +882,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Glide源码解析（一）：加载流程"><span class="nav-number">1.</span> <span class="nav-text">Glide源码解析（一）：加载流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预热"><span class="nav-number">1.1.</span> <span class="nav-text">预热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程分析"><span class="nav-number">1.2.</span> <span class="nav-text">流程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#with"><span class="nav-number">1.2.1.</span> <span class="nav-text">with</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#load"><span class="nav-number">1.2.2.</span> <span class="nav-text">load</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#into"><span class="nav-number">1.2.3.</span> <span class="nav-text">into</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
@@ -1376,6 +997,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 

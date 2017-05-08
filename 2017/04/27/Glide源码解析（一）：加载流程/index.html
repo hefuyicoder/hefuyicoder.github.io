@@ -118,7 +118,7 @@
 <meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/GenericRequestBuilder.png">
 <meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/DataLoadProvider.png">
 <meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/FixLoadProvider.png">
-<meta property="og:updated_time" content="2017-05-08T03:41:02.000Z">
+<meta property="og:updated_time" content="2017-05-08T03:44:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Glide源码解析（一）：加载流程">
 <meta name="twitter:description" content="Glide源码解析（一）：加载流程对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。
@@ -438,6 +438,7 @@
         <h2 id="Glide源码解析（一）：加载流程"><a href="#Glide源码解析（一）：加载流程" class="headerlink" title="Glide源码解析（一）：加载流程"></a>Glide源码解析（一）：加载流程</h2><p>对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。</p>
 <p>它们的使用场景基本都是重合的，而本人对 Glide 更为熟悉，所以选取 Glide 来进行深入学习，这系列文章作为学习的总结。选取的 Glide 版本是比较新的稳定版 3.7.0 。</p>
 <p>本篇是源码解析的开篇，主要分析 Glide 加载图片的基本流程。在后续的专题中再对缓存机制、生命周期监听等细节进行详细分析。</p>
+<a id="more"></a>
 <h3 id="预热"><a href="#预热" class="headerlink" title="预热"></a>预热</h3><p>为了预防直接扎进源码的海洋带来的各种不适，做一下热身还是很有必要的。我们先抛开源码，从感性角度理解 Glide 成功显示出一张图片，需要经过哪些过程,由什么角色完成，这些角色有机结合起来就是整个基本流程了。</p>
 <ul>
 <li>数据源。即对数据来源的描述，要加载图片，当然需要告诉 Glide 从哪里获取了。它可以是 URL ，资源 ID 或者是一个文件。Glide 中称之为 Model。</li>

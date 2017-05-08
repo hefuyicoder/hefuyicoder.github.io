@@ -105,24 +105,24 @@
 
 
 
-<meta name="description" content="Glide源码解析（一）：加载流程对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。
-它们的使用场景基本都是重合的，而本人对 Glide">
+<meta name="description" content="对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。
+它们的使用场景基本都是重合的，而本人对 Glide 更为熟悉，所以选取 Glide 来">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Glide源码解析（一）：加载流程">
 <meta property="og:url" content="http://hefuyicoder.com/2017/04/27/Glide源码解析（一）：加载流程/index.html">
 <meta property="og:site_name" content="乌有先生的个人博客">
-<meta property="og:description" content="Glide源码解析（一）：加载流程对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。
-它们的使用场景基本都是重合的，而本人对 Glide">
+<meta property="og:description" content="对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。
+它们的使用场景基本都是重合的，而本人对 Glide 更为熟悉，所以选取 Glide 来">
 <meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/glideprocress.png">
 <meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/DrawableTypeRequest.png">
 <meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/GenericRequestBuilder.png">
 <meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/DataLoadProvider.png">
 <meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/FixLoadProvider.png">
-<meta property="og:updated_time" content="2017-05-08T03:44:25.000Z">
+<meta property="og:updated_time" content="2017-05-08T03:47:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Glide源码解析（一）：加载流程">
-<meta name="twitter:description" content="Glide源码解析（一）：加载流程对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。
-它们的使用场景基本都是重合的，而本人对 Glide">
+<meta name="twitter:description" content="对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。
+它们的使用场景基本都是重合的，而本人对 Glide 更为熟悉，所以选取 Glide 来">
 <meta name="twitter:image" content="http://o8swcawjo.bkt.clouddn.com/glideprocress.png">
 
 
@@ -435,7 +435,7 @@
       
 
       
-        <h2 id="Glide源码解析（一）：加载流程"><a href="#Glide源码解析（一）：加载流程" class="headerlink" title="Glide源码解析（一）：加载流程"></a>Glide源码解析（一）：加载流程</h2><p>对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。</p>
+        <p>对于 Glide 相信大家都不陌生，它是 Google 员工 bumptech 开源的一款图片加载框架，因为其简单易用的 API ，强大的功能，优秀的内存管理被 Google 官方所推荐并且被广泛运用在 Google 的开源项目中。目前 Glide 、Picasso 和 Fresco 都是比较主流图片加载框架。</p>
 <p>它们的使用场景基本都是重合的，而本人对 Glide 更为熟悉，所以选取 Glide 来进行深入学习，这系列文章作为学习的总结。选取的 Glide 版本是比较新的稳定版 3.7.0 。</p>
 <p>本篇是源码解析的开篇，主要分析 Glide 加载图片的基本流程。在后续的专题中再对缓存机制、生命周期监听等细节进行详细分析。</p>
 <a id="more"></a>
@@ -893,7 +893,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Glide源码解析（一）：加载流程"><span class="nav-number">1.</span> <span class="nav-text">Glide源码解析（一）：加载流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预热"><span class="nav-number">1.1.</span> <span class="nav-text">预热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程分析"><span class="nav-number">1.2.</span> <span class="nav-text">流程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#with"><span class="nav-number">1.2.1.</span> <span class="nav-text">with</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#load"><span class="nav-number">1.2.2.</span> <span class="nav-text">load</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#into"><span class="nav-number">1.2.3.</span> <span class="nav-text">into</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#预热"><span class="nav-number">1.</span> <span class="nav-text">预热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程分析"><span class="nav-number">2.</span> <span class="nav-text">流程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#with"><span class="nav-number">2.1.</span> <span class="nav-text">with</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#load"><span class="nav-number">2.2.</span> <span class="nav-text">load</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#into"><span class="nav-number">2.3.</span> <span class="nav-text">into</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -105,20 +105,20 @@
 
 
 
-<meta name="description" content="Glide源码解析（二）：缓存机制本文是 Glide 源码分析系列的第二篇，主要通过分析源码总结 Glide 的缓存机制。
-从加载流程揭开缓存机制的面纱首先回忆一下上一篇关于 Glide 加载流程源码分析的内容，我们从 Glide.with().load().into() 这个最简单最基本的用法入手，一步步深入源码，梳理出了完整的图片加载流程。由于当时分析重点在于整体流程的把握上，所以对于缓存相关">
+<meta name="description" content="本文是 Glide 源码分析系列的第二篇，主要通过分析源码总结 Glide 的缓存机制。
+从加载流程揭开缓存机制的面纱首先回忆一下上一篇关于 Glide 加载流程源码分析的内容，我们从 Glide.with().load().into() 这个最简单最基本的用法入手，一步步深入源码，梳理出了完整的图片加载流程。由于当时分析重点在于整体流程的把握上，所以对于缓存相关的部分都是简单带过而没有进行深入分">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Glide源码解析（二）：缓存机制">
 <meta property="og:url" content="http://hefuyicoder.com/2017/05/08/Glide源码解析（二）：缓存机制/index.html">
 <meta property="og:site_name" content="乌有先生的个人博客">
-<meta property="og:description" content="Glide源码解析（二）：缓存机制本文是 Glide 源码分析系列的第二篇，主要通过分析源码总结 Glide 的缓存机制。
-从加载流程揭开缓存机制的面纱首先回忆一下上一篇关于 Glide 加载流程源码分析的内容，我们从 Glide.with().load().into() 这个最简单最基本的用法入手，一步步深入源码，梳理出了完整的图片加载流程。由于当时分析重点在于整体流程的把握上，所以对于缓存相关">
+<meta property="og:description" content="本文是 Glide 源码分析系列的第二篇，主要通过分析源码总结 Glide 的缓存机制。
+从加载流程揭开缓存机制的面纱首先回忆一下上一篇关于 Glide 加载流程源码分析的内容，我们从 Glide.with().load().into() 这个最简单最基本的用法入手，一步步深入源码，梳理出了完整的图片加载流程。由于当时分析重点在于整体流程的把握上，所以对于缓存相关的部分都是简单带过而没有进行深入分">
 <meta property="og:image" content="http://o8swcawjo.bkt.clouddn.com/%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B.png">
-<meta property="og:updated_time" content="2017-05-08T03:44:44.000Z">
+<meta property="og:updated_time" content="2017-05-08T03:48:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Glide源码解析（二）：缓存机制">
-<meta name="twitter:description" content="Glide源码解析（二）：缓存机制本文是 Glide 源码分析系列的第二篇，主要通过分析源码总结 Glide 的缓存机制。
-从加载流程揭开缓存机制的面纱首先回忆一下上一篇关于 Glide 加载流程源码分析的内容，我们从 Glide.with().load().into() 这个最简单最基本的用法入手，一步步深入源码，梳理出了完整的图片加载流程。由于当时分析重点在于整体流程的把握上，所以对于缓存相关">
+<meta name="twitter:description" content="本文是 Glide 源码分析系列的第二篇，主要通过分析源码总结 Glide 的缓存机制。
+从加载流程揭开缓存机制的面纱首先回忆一下上一篇关于 Glide 加载流程源码分析的内容，我们从 Glide.with().load().into() 这个最简单最基本的用法入手，一步步深入源码，梳理出了完整的图片加载流程。由于当时分析重点在于整体流程的把握上，所以对于缓存相关的部分都是简单带过而没有进行深入分">
 <meta name="twitter:image" content="http://o8swcawjo.bkt.clouddn.com/%E7%BC%93%E5%AD%98%E6%B5%81%E7%A8%8B.png">
 
 
@@ -431,7 +431,7 @@
       
 
       
-        <h2 id="Glide源码解析（二）：缓存机制"><a href="#Glide源码解析（二）：缓存机制" class="headerlink" title="Glide源码解析（二）：缓存机制"></a>Glide源码解析（二）：缓存机制</h2><p>本文是 Glide 源码分析系列的第二篇，主要通过分析源码总结 Glide 的缓存机制。</p>
+        <p>本文是 Glide 源码分析系列的第二篇，主要通过分析源码总结 Glide 的缓存机制。</p>
 <h3 id="从加载流程揭开缓存机制的面纱"><a href="#从加载流程揭开缓存机制的面纱" class="headerlink" title="从加载流程揭开缓存机制的面纱"></a>从加载流程揭开缓存机制的面纱</h3><p>首先回忆一下上一篇关于 Glide 加载流程源码分析的内容，我们从 Glide.with().load().into() 这个最简单最基本的用法入手，一步步深入源码，梳理出了完整的图片加载流程。由于当时分析重点在于整体流程的把握上，所以对于缓存相关的部分都是简单带过而没有进行深入分析。首先是为了避免文章篇幅过长，其次因为缓存它不是独立的部分，它埋藏在整个加载流程的各个环节中，所以对缓存机制的理解应该建立在对整体流程清晰的把握上。</p>
 <p>而在本文中，我们将从整个加载流程入手，找出缓存相关的部分，进而还原出 Glide 缓存机制的整体面貌。然后再对各个部分进行详细分析。</p>
 <p>那么我们开始来看看加载流程中被我们错过的缓存操作。</p>
@@ -774,7 +774,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Glide源码解析（二）：缓存机制"><span class="nav-number">1.</span> <span class="nav-text">Glide源码解析（二）：缓存机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#从加载流程揭开缓存机制的面纱"><span class="nav-number">1.1.</span> <span class="nav-text">从加载流程揭开缓存机制的面纱</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发起请求前"><span class="nav-number">1.1.1.</span> <span class="nav-text">发起请求前</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存缓存"><span class="nav-number">1.2.</span> <span class="nav-text">内存缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引用计数"><span class="nav-number">1.2.1.</span> <span class="nav-text">引用计数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LruResourceCache"><span class="nav-number">1.2.2.</span> <span class="nav-text">LruResourceCache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ActiveResources"><span class="nav-number">1.2.3.</span> <span class="nav-text">ActiveResources</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘缓存"><span class="nav-number">1.3.</span> <span class="nav-text">磁盘缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DiskLruCacheWrapper"><span class="nav-number">1.3.1.</span> <span class="nav-text">DiskLruCacheWrapper</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存写入"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">缓存写入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存读取"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">缓存读取</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DiskLruCache"><span class="nav-number">1.3.2.</span> <span class="nav-text">DiskLruCache</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存构建"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">缓存构建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存写入-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">缓存写入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存读取-1"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">缓存读取</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BitmapPool"><span class="nav-number">1.4.</span> <span class="nav-text">BitmapPool</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#复用策略"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">复用策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LRU-算法实现"><span class="nav-number">1.4.1.</span> <span class="nav-text">LRU 算法实现</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#从加载流程揭开缓存机制的面纱"><span class="nav-number">1.</span> <span class="nav-text">从加载流程揭开缓存机制的面纱</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发起请求前"><span class="nav-number">1.1.</span> <span class="nav-text">发起请求前</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存缓存"><span class="nav-number">2.</span> <span class="nav-text">内存缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引用计数"><span class="nav-number">2.1.</span> <span class="nav-text">引用计数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LruResourceCache"><span class="nav-number">2.2.</span> <span class="nav-text">LruResourceCache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ActiveResources"><span class="nav-number">2.3.</span> <span class="nav-text">ActiveResources</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#磁盘缓存"><span class="nav-number">3.</span> <span class="nav-text">磁盘缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DiskLruCacheWrapper"><span class="nav-number">3.1.</span> <span class="nav-text">DiskLruCacheWrapper</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存写入"><span class="nav-number">3.1.1.</span> <span class="nav-text">缓存写入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存读取"><span class="nav-number">3.1.2.</span> <span class="nav-text">缓存读取</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DiskLruCache"><span class="nav-number">3.2.</span> <span class="nav-text">DiskLruCache</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存构建"><span class="nav-number">3.2.1.</span> <span class="nav-text">缓存构建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存写入-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">缓存写入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存读取-1"><span class="nav-number">3.2.3.</span> <span class="nav-text">缓存读取</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BitmapPool"><span class="nav-number">4.</span> <span class="nav-text">BitmapPool</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#复用策略"><span class="nav-number">4.0.1.</span> <span class="nav-text">复用策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LRU-算法实现"><span class="nav-number">4.1.</span> <span class="nav-text">LRU 算法实现</span></a></li></ol></li></ol></div>
             
 
           </div>
